@@ -1,0 +1,127 @@
+/* Atualizado: animações de aparecimento ao scroll */
+
+:root{
+  --bg-dark-1: #000000;
+  --bg-dark-2: #07040a;
+  --accent1: #7C3AED;
+  --accent2: #6D28D9;
+  --soft: #A78BFA;
+  --text-soft: #EDE7FE;
+}
+
+/* Fundo degradê */
+.bg-hero-gradient {
+  background: radial-gradient(900px 500px at 12% 12%, rgba(124,58,237,0.12), transparent 8%),
+              radial-gradient(800px 420px at 88% 78%, rgba(109,40,217,0.12), transparent 6%),
+              linear-gradient(180deg, var(--bg-dark-2) 0%, #0b0711 40%, #050205 100%);
+  background-color: #000;
+  background-attachment: fixed;
+}
+
+/* Reset */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+main { min-height: 100vh; }
+.section { scroll-snap-align: start; min-height: min(75vh, calc(100vh - 180px)); padding-top: 24px; padding-bottom: 24px; }
+
+/* Search */
+#searchRow { margin-bottom: 6px; }
+#searchRow form { min-height: 52px; }
+
+/* Nav */
+header .nav-link { color: rgba(255,255,255,0.9); transition: color .18s ease; }
+header .nav-link:hover { color: var(--soft); }
+
+/* Buttons */
+.btn-primary { background: linear-gradient(90deg, var(--accent1), var(--accent2)); color: white; box-shadow: 0 8px 20px rgba(109,40,217,0.18); }
+.btn-ghost { color: var(--text-soft); background: transparent; border: 1px solid rgba(255,255,255,0.04); }
+
+/* Cards */
+.book-card, .product { border: 1px solid rgba(255,255,255,0.04); background: linear-gradient(180deg, rgba(255,255,255,0.01), transparent); }
+
+/* Image loader */
+.cover-loader {
+  background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  min-height: 220px;
+  object-fit: cover;
+  transition: filter .28s ease, opacity .28s ease;
+  filter: blur(6px) grayscale(20%);
+  opacity: 0.95;
+}
+.cover-loaded { filter: none !important; opacity: 1 !important; }
+
+/* Search results */
+#searchGrid .card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.04); padding: 12px; border-radius: 8px; }
+
+/* Forms */
+input, textarea, select { transition: box-shadow .12s ease, border-color .12s ease; }
+input:focus, textarea:focus, select:focus { box-shadow: 0 6px 30px rgba(124,58,237,0.10); border-color: rgba(124,58,237,0.4); }
+
+/* Buttons small */
+.buy { transition: transform .18s ease, box-shadow .18s ease; box-shadow: 0 6px 18px rgba(109,40,217,0.12); }
+.buy:hover { transform: translateY(-3px); box-shadow: 0 14px 30px rgba(109,40,217,0.16); }
+
+/* Dots nav */
+#dots { pointer-events: auto; }
+#dots button { width: 12px; height: 12px; border-radius: 999px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.03); transition: transform .18s ease, box-shadow .18s ease; }
+#dots button.active { background: linear-gradient(180deg,var(--accent1),var(--accent2)); box-shadow: 0 6px 18px rgba(109,40,217,0.25); transform: scale(1.15); }
+
+/* Footer */
+footer { color: #cfcfd6; }
+footer a { color: rgba(255,255,255,0.8); transition: color .18s; }
+footer a:hover { color: var(--soft); }
+
+/* Swiper */
+.swiper { width: 100%; padding: 12px 8px; }
+.card-slide { display:flex; flex-direction:column; align-items:center; }
+.card-slide img { border-radius: 8px; }
+
+/* ---------------------------
+   Appear-on-scroll animations
+   --------------------------- */
+.appear {
+  opacity: 0;
+  transform: translateY(18px) scale(0.995);
+  will-change: transform, opacity;
+  transition-property: opacity, transform;
+  transition-duration: 520ms;
+  transition-timing-function: cubic-bezier(.2,.9,.3,1);
+  /* transition-delay will be set inline pelo JS para stagger */
+}
+
+.appear-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Provide a subtle scale-up on hover after visible */
+.appear-visible .card-slide, .appear-visible .book-card, .appear-visible .product {
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .appear, .appear-visible {
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .cover-loader { min-height: 180px; }
+}
+@media (max-width: 768px) {
+  .cover-loader { min-height: 140px; }
+  .section { min-height: auto; padding-top: 16px; padding-bottom: 24px; }
+  #searchRow { margin-top: 64px; }
+}

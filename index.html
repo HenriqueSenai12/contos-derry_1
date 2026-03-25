@@ -1,0 +1,520 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Livros de Terror — Landing</title>
+
+  <script>
+    window.tailwind = window.tailwind || {};
+    window.tailwind.config = { theme: { extend: {} } };
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="antialiased text-white bg-hero-gradient min-h-screen">
+
+  <!-- Header -->
+  <header class="fixed inset-x-0 top-0 z-50">
+    <div class="backdrop-blur-md bg-black/28 border-b border-white/5">
+      <div class="container mx-auto px-4 lg:px-20 flex items-center justify-between h-16 gap-4">
+        <a href="#section-0" class="flex items-center gap-3 shrink-0">
+          <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-[#7C3AED] to-[#6D28D9] flex items-center justify-center text-black font-bold">LT</div>
+          <span class="font-semibold">Loja de Terror</span>
+        </a>
+
+        <nav class="hidden md:flex items-center gap-6">
+          <a href="#section-0" class="nav-link text-sm">Início</a>
+          <a href="#section-1" class="nav-link text-sm">Coleção</a>
+          <a href="#section-categories" class="nav-link text-sm">Categorias</a>
+          <a href="#section-4" class="nav-link text-sm">Capas</a>
+          <a href="#section-2" class="nav-link text-sm">Sobre</a>
+          <a href="#section-3" class="nav-link text-sm">Depoimentos</a>
+          <a href="#section-contact" class="nav-link text-sm">Contato</a>
+        </nav>
+
+        <div class="flex items-center gap-3">
+          <button class="hidden md:inline-flex items-center gap-2 px-3 py-2 rounded-md text-sm bg-[#A78BFA] text-black">Carrinho</button>
+          <button id="mobileToggle" class="md:hidden p-2 rounded-md bg-white/5" aria-label="Abrir menu">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Search -->
+  <div id="searchRow" class="w-full z-40 mt-16">
+    <div class="container mx-auto px-4 lg:px-20">
+      <form id="searchForm" class="flex items-center gap-3 bg-black/30 border border-white/5 rounded-lg px-3 py-3 shadow-sm" role="search">
+        <label for="searchInput" class="sr-only">Pesquisar livros</label>
+        <input id="searchInput" name="q" type="search" placeholder="Pesquisar títulos, autores ou palavras-chave..." autocomplete="off" class="flex-1 bg-transparent outline-none text-white placeholder:text-gray-400 px-2 py-2"/>
+        <button type="submit" class="px-4 py-2 rounded bg-[#A78BFA] text-black font-semibold">Pesquisar</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Mobile nav -->
+  <div id="mobileNav" class="md:hidden hidden fixed inset-x-0 top-0 mt-16 z-50 bg-black/40 border-b border-white/5">
+    <div class="px-4 py-4">
+      <form id="searchFormMobile" class="flex items-center gap-2 mb-4">
+        <input id="searchInputMobile" type="search" placeholder="Pesquisar..." class="w-full rounded px-3 py-2 bg-black/30 border border-white/6 placeholder:text-gray-400"/>
+        <button type="submit" class="px-3 py-2 rounded bg-[#A78BFA] text-black">Ir</button>
+      </form>
+      <a href="#section-0" class="block py-2">Início</a>
+      <a href="#section-1" class="block py-2">Coleção</a>
+      <a href="#section-categories" class="block py-2">Categorias</a>
+      <a href="#section-4" class="block py-2">Capas</a>
+      <a href="#section-2" class="block py-2">Sobre</a>
+      <a href="#section-3" class="block py-2">Depoimentos</a>
+      <a href="#section-contact" class="block py-2">Contato</a>
+    </div>
+  </div>
+
+  <!-- Dots nav -->
+  <nav id="dots" class="fixed right-6 top-1/2 -translate-y-1/2 z-40 flex flex-col gap-3"></nav>
+
+  <main id="main" class="relative scroll-smooth snap-y snap-mandatory overflow-y-auto">
+
+    <!-- Hero -->
+    <section class="section snap-start flex items-center" id="section-0" style="padding-top: 96px;">
+      <div class="container mx-auto px-4 lg:px-20 py-10">
+        <div class="grid lg:grid-cols-2 gap-8 items-center">
+          <div>
+            <h1 class="text-3xl md:text-5xl font-extrabold leading-tight tracking-tight" style="text-shadow:0 6px 24px rgba(109,40,217,0.22);">Livros de Terror Que Roubam Seu Sono</h1>
+            <p class="mt-4 text-base md:text-lg text-[#EDE7FE] max-w-xl">Edições selecionadas com capas e conteúdo que vão prender sua atenção até a última página.</p>
+            <div class="mt-6 flex flex-wrap gap-3">
+              <a href="#section-1" class="btn-primary inline-flex items-center px-5 py-2 rounded-lg font-semibold shadow-sm">Ver Coleção</a>
+              <a href="#section-2" class="btn-ghost inline-flex items-center px-5 py-2 rounded-lg font-medium">Sobre o projeto</a>
+            </div>
+            <div class="mt-4 text-sm text-gray-300/70">Frete grátis acima de R$150 — primeiras 100 unidades com marcador fosforescente.</div>
+          </div>
+
+          <div class="relative">
+            <div class="grid grid-cols-2 gap-4">
+              <article class="book-card p-3 rounded-xl shadow transform hover:scale-102 transition">
+                <img data-title="It Stephen King" alt="It - capa" class="w-full h-48 object-cover rounded mb-3 cover-loader"/>
+                <h3 class="font-bold text-lg">It — A Coisa</h3>
+                <p class="text-sm mt-1 text-[#EDE7FE]/80">Edição clássica de Stephen King.</p>
+                <div class="mt-3 flex items-center justify-between">
+                  <div class="text-lg font-bold">R$ 49,90</div>
+                  <button class="buy inline-flex items-center gap-2 px-3 py-2 bg-[#A78BFA]/90 rounded text-sm">Comprar</button>
+                </div>
+              </article>
+
+              <article class="book-card p-3 rounded-xl shadow transform hover:scale-102 transition">
+                <img data-title="Five Nights at Freddy's" alt="Five Nights - capa" class="w-full h-48 object-cover rounded mb-3 cover-loader"/>
+                <h3 class="font-bold text-lg">Five Nights — Cronologia</h3>
+                <p class="text-sm mt-1 text-[#EDE7FE]/80">Compilação e análises dos jogos e livros.</p>
+                <div class="mt-3 flex items-center justify-between">
+                  <div class="text-lg font-bold">R$ 59,90</div>
+                  <button class="buy inline-flex items-center gap-2 px-3 py-2 bg-[#6D28D9] rounded text-sm">Comprar</button>
+                </div>
+              </article>
+            </div>
+
+            <div class="absolute -right-8 -bottom-8 w-32 h-32 rounded-full blur-3xl opacity-30 bg-[#7C3AED] pointer-events-none"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Collection -->
+    <section class="section snap-start" id="section-1" style="padding-top: 96px;">
+      <div class="container mx-auto px-4 lg:px-20 py-8">
+        <h2 class="text-2xl font-bold mb-4">Coleção Selecionada</h2>
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="product p-3 bg-[#0f0f17]/60 rounded-lg border border-[#1e1028] shadow">
+            <img data-title="The Shining Stephen King" alt="The Shining" class="w-full h-48 object-cover rounded mb-3 cover-loader"/>
+            <h3 class="font-semibold text-lg">Vozes Antigas</h3>
+            <p class="text-sm mt-1 text-gray-300/80">Suspense psicológico em atmosferas claustrofóbicas.</p>
+            <div class="mt-3 flex items-center justify-between">
+              <div class="font-bold">R$ 44,90</div>
+              <button class="buy px-3 py-2 rounded bg-[#A78BFA] text-black">Comprar</button>
+            </div>
+          </div>
+
+          <div class="product p-3 bg-[#0f0f17]/60 rounded-lg border border-[#1e1028] shadow">
+            <img data-title="The Exorcist William Peter Blatty" alt="The Exorcist" class="w-full h-48 object-cover rounded mb-3 cover-loader"/>
+            <h3 class="font-semibold text-lg">Noite do Sussurro</h3>
+            <p class="text-sm mt-1 text-gray-300/80">Contos curtos e perturbadores.</p>
+            <div class="mt-3 flex items-center justify-between">
+              <div class="font-bold">R$ 29,90</div>
+              <button class="buy px-3 py-2 rounded bg-[#6D28D9]">Comprar</button>
+            </div>
+          </div>
+
+          <div class="product p-3 bg-[#0f0f17]/60 rounded-lg border border-[#1e1028] shadow">
+            <img data-title="Dracula Bram Stoker" alt="Dracula" class="w-full h-48 object-cover rounded mb-3 cover-loader"/>
+            <h3 class="font-semibold text-lg">A Sétima Porta</h3>
+            <p class="text-sm mt-1 text-gray-300/80">Romance sobrenatural com clima de folclore.</p>
+            <div class="mt-3 flex items-center justify-between">
+              <div class="font-bold">R$ 69,90</div>
+              <button class="buy px-3 py-2 rounded bg-[#A78BFA] text-black">Comprar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="section snap-start" id="section-categories" style="padding-top: 96px;">
+      <div class="container mx-auto px-4 lg:px-20 py-8">
+        <h2 class="text-2xl font-bold mb-4">Categorias — Atualidades</h2>
+
+        <!-- each category swiper container is present; slides will be generated dynamically by script -->
+        <!-- Terror Psicológico -->
+        <div class="mb-8">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="font-semibold">Terror Psicológico</h3>
+            <small class="text-sm text-gray-400">Autores contemporâneos</small>
+          </div>
+          <div class="swiper swiper-psych">
+            <div class="swiper-wrapper"><!-- slides injected by script --></div>
+            <div class="swiper-button-prev swiper-psych-prev"></div>
+            <div class="swiper-button-next swiper-psych-next"></div>
+            <div class="swiper-pagination swiper-psych-pg mt-3"></div>
+          </div>
+        </div>
+
+        <!-- Horror Folclórico -->
+        <div class="mb-8">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="font-semibold">Horror Folclórico</h3>
+            <small class="text-sm text-gray-400">Tradições e terrores locais</small>
+          </div>
+          <div class="swiper swiper-folk">
+            <div class="swiper-wrapper"></div>
+            <div class="swiper-button-prev swiper-folk-prev"></div>
+            <div class="swiper-button-next swiper-folk-next"></div>
+            <div class="swiper-pagination swiper-folk-pg mt-3"></div>
+          </div>
+        </div>
+
+        <!-- Thrillers Modernos -->
+        <div class="mb-8">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="font-semibold">Thrillers Modernos</h3>
+            <small class="text-sm text-gray-400">Mistério e tensão</small>
+          </div>
+          <div class="swiper swiper-thriller">
+            <div class="swiper-wrapper"></div>
+            <div class="swiper-button-prev swiper-thriller-prev"></div>
+            <div class="swiper-button-next swiper-thriller-next"></div>
+            <div class="swiper-pagination swiper-thriller-pg mt-3"></div>
+          </div>
+        </div>
+
+        <!-- Horror Cósmico -->
+        <div class="mb-8">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="font-semibold">Horror Cósmico</h3>
+            <small class="text-sm text-gray-400">Medo do desconhecido</small>
+          </div>
+          <div class="swiper swiper-cosmic">
+            <div class="swiper-wrapper"></div>
+            <div class="swiper-button-prev swiper-cosmic-prev"></div>
+            <div class="swiper-button-next swiper-cosmic-next"></div>
+            <div class="swiper-pagination swiper-cosmic-pg mt-3"></div>
+          </div>
+        </div>
+
+        <!-- YA Sombrio -->
+        <div class="mb-8">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="font-semibold">YA Sombrio</h3>
+            <small class="text-sm text-gray-400">Infantojuvenil com tom sombrio</small>
+          </div>
+          <div class="swiper swiper-ya">
+            <div class="swiper-wrapper"></div>
+            <div class="swiper-button-prev swiper-ya-prev"></div>
+            <div class="swiper-button-next swiper-ya-next"></div>
+            <div class="swiper-pagination swiper-ya-pg mt-3"></div>
+          </div>
+        </div>
+
+        <!-- Classics / Contemporaries / Infanto (kept containers) -->
+        <div class="mb-8">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="font-semibold">Clássicos</h3>
+            <small class="text-sm text-gray-400">Edições essenciais</small>
+          </div>
+          <div class="swiper swiper-classicos">
+            <div class="swiper-wrapper"></div>
+            <div class="swiper-button-prev swiper-classicos-prev"></div>
+            <div class="swiper-button-next swiper-classicos-next"></div>
+            <div class="swiper-pagination swiper-classicos-pg mt-3"></div>
+          </div>
+        </div>
+
+        <div class="mb-8">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="font-semibold">Contemporâneos</h3>
+            <small class="text-sm text-gray-400">Autores modernos e emergentes</small>
+          </div>
+          <div class="swiper swiper-contemporaneos">
+            <div class="swiper-wrapper"></div>
+            <div class="swiper-button-prev swiper-contemporaneos-prev"></div>
+            <div class="swiper-button-next swiper-contemporaneos-next"></div>
+            <div class="swiper-pagination swiper-contemporaneos-pg mt-3"></div>
+          </div>
+        </div>
+
+        <div class="mb-8">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="font-semibold">Infantojuvenil / Young Adult</h3>
+            <small class="text-sm text-gray-400">Tons de mistério e fantasia sombria</small>
+          </div>
+          <div class="swiper swiper-infanto">
+            <div class="swiper-wrapper"></div>
+            <div class="swiper-button-prev swiper-infanto-prev"></div>
+            <div class="swiper-button-next swiper-infanto-next"></div>
+            <div class="swiper-pagination swiper-infanto-pg mt-3"></div>
+          </div>
+        </div>
+
+        <!-- New categories (graphic, short, nonfiction, international, adapt) -->
+        <div class="mb-8">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="font-semibold">Graphic Horror</h3>
+            <small class="text-sm text-gray-400">Terror em quadrinhos e graphic novels</small>
+          </div>
+          <div class="swiper swiper-graphic">
+            <div class="swiper-wrapper"></div>
+            <div class="swiper-button-prev swiper-graphic-prev"></div>
+            <div class="swiper-button-next swiper-graphic-next"></div>
+            <div class="swiper-pagination swiper-graphic-pg mt-3"></div>
+          </div>
+        </div>
+
+        <div class="mb-8">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="font-semibold">Short Stories</h3>
+            <small class="text-sm text-gray-400">Contos e coletâneas</small>
+          </div>
+          <div class="swiper swiper-short">
+            <div class="swiper-wrapper"></div>
+            <div class="swiper-button-prev swiper-short-prev"></div>
+            <div class="swiper-button-next swiper-short-next"></div>
+            <div class="swiper-pagination swiper-short-pg mt-3"></div>
+          </div>
+        </div>
+
+        <div class="mb-8">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="font-semibold">Non-Fiction Horror</h3>
+            <small class="text-sm text-gray-400">Relatos verdadeiros e investigações</small>
+          </div>
+          <div class="swiper swiper-nonfiction">
+            <div class="swiper-wrapper"></div>
+            <div class="swiper-button-prev swiper-nonfiction-prev"></div>
+            <div class="swiper-button-next swiper-nonfiction-next"></div>
+            <div class="swiper-pagination swiper-nonfiction-pg mt-3"></div>
+          </div>
+        </div>
+
+        <div class="mb-8">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="font-semibold">International Horror</h3>
+            <small class="text-sm text-gray-400">Terror de várias regiões</small>
+          </div>
+          <div class="swiper swiper-international">
+            <div class="swiper-wrapper"></div>
+            <div class="swiper-button-prev swiper-international-prev"></div>
+            <div class="swiper-button-next swiper-international-next"></div>
+            <div class="swiper-pagination swiper-international-pg mt-3"></div>
+          </div>
+        </div>
+
+        <div class="mb-8">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="font-semibold">Adaptações & Mídia</h3>
+            <small class="text-sm text-gray-400">Livros que viraram filmes / séries</small>
+          </div>
+          <div class="swiper swiper-adapt">
+            <div class="swiper-wrapper"></div>
+            <div class="swiper-button-prev swiper-adapt-prev"></div>
+            <div class="swiper-button-next swiper-adapt-next"></div>
+            <div class="swiper-pagination swiper-adapt-pg mt-3"></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Capas famosas -->
+    <section class="section snap-start" id="section-4" style="padding-top: 96px;">
+      <div class="container mx-auto px-4 lg:px-20 py-8">
+        <h2 class="text-2xl font-bold mb-4">Capas Famosas — Destaque</h2>
+        <div class="swiper mySwiper">
+          <div class="swiper-wrapper"></div>
+          <div class="swiper-button-prev !text-white"></div>
+          <div class="swiper-button-next !text-white"></div>
+          <div class="swiper-pagination mt-3"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sobre -->
+    <section class="section snap-start" id="section-2" style="padding-top: 96px;">
+      <div class="container mx-auto px-4 lg:px-20 py-8">
+        <h2 class="text-2xl font-bold mb-4">Sobre a Curadoria</h2>
+        <p class="text-base text-[#EDE7FE]/90 max-w-3xl mb-4">Selecionamos autores e títulos que definem o gênero — do terror psicológico ao folclore moderno — com foco em narrativa, atmosfera e final impactante.</p>
+
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="p-4 bg-[#0f0f17]/50 rounded-lg border border-[#1e1028]">
+            <h3 class="font-semibold mb-2">Processo de seleção</h3>
+            <ul class="text-sm text-gray-300 space-y-2">
+              <li>Leitura crítica de amostras por nosso comitê editorial.</li>
+              <li>Prioridade para narrativa atmosférica e construção de suspense.</li>
+              <li>Avaliação de qualidade de tradução e edição (quando aplicável).</li>
+            </ul>
+          </div>
+
+          <div class="p-4 bg-[#0f0f17]/50 rounded-lg border border-[#1e1028]">
+            <h3 class="font-semibold mb-2">Edições e acabamento</h3>
+            <p class="text-sm text-gray-300">Trabalhamos com acabamentos foscos, miolo em papel offset de alta gramatura e marcadores exclusivos nas edições limitadas.</p>
+          </div>
+
+          <div class="p-4 bg-[#0f0f17]/50 rounded-lg border border-[#1e1028]">
+            <h3 class="font-semibold mb-2">Curadoria exclusiva</h3>
+            <p class="text-sm text-gray-300">Além dos clássicos, destacamos autores contemporâneos emergentes que renovam o gênero com abordagens originais.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Depoimentos -->
+    <section class="section snap-start" id="section-3" style="padding-top: 96px;">
+      <div class="container mx-auto px-4 lg:px-20 py-8">
+        <h2 class="text-2xl font-bold mb-4">O que leitores dizem</h2>
+        <div class="grid md:grid-cols-2 gap-6">
+          <blockquote class="p-4 bg-[#0f0f17]/60 rounded-lg border border-[#1e1028]">
+            <p class="italic">"Não consegui largar 'Vozes Antigas'. A construção psicológica é impecável — senti a tensão crescendo página a página. Recomendo para quem gosta de terror que prioriza personagem e atmosfera."</p>
+            <cite class="block mt-3 text-sm text-gray-300">— Ana P., 14/09/2025</cite>
+          </blockquote>
+
+          <blockquote class="p-4 bg-[#0f0f17]/60 rounded-lg border border-[#1e1028]">
+            <p class="italic">"A edição limitada com marcador fosforescente é um diferencial. Embalagem cuidadosa e prazo de entrega dentro do prometido. Compra certeira para presentear."</p>
+            <cite class="block mt-3 text-sm text-gray-300">— Carlos M., 02/11/2025</cite>
+          </blockquote>
+
+          <blockquote class="p-4 bg-[#0f0f17]/60 rounded-lg border border-[#1e1028]">
+            <p class="italic">"Comprei 'It' em edição especial — a seleção de capas e o acabamento superaram minhas expectativas. Ótimo atendimento também."</p>
+            <cite class="block mt-3 text-sm text-gray-300">— Marina L., 20/12/2025</cite>
+          </blockquote>
+
+          <blockquote class="p-4 bg-[#0f0f17]/60 rounded-lg border border-[#1e1028]">
+            <p class="italic">"Adorei descobrir autores novos aqui. A curadoria me apresentou leituras que eu não encontraria sozinho."</p>
+            <cite class="block mt-3 text-sm text-gray-300">— Pedro S., 05/01/2026</cite>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contato (mantido) -->
+    <section class="section snap-start" id="section-contact" style="padding-top: 96px;">
+      <div class="container mx-auto px-4 lg:px-20 py-8">
+        <h2 class="text-2xl font-bold mb-4">Contato</h2>
+        <p class="text-sm text-[#EDE7FE]/85 mb-4">Preencha o formulário abaixo e nossa equipe entrará em contato. Campos com * são obrigatórios.</p>
+
+        <form id="contactForm" class="grid grid-cols-1 md:grid-cols-3 gap-4 bg-[#0f0f17]/50 p-6 rounded-lg border border-[#1e1028]">
+          <div class="md:col-span-2 grid grid-cols-1 gap-4">
+            <div><label for="name" class="text-sm block mb-1">Nome completo *</label><input id="name" name="name" required class="w-full rounded px-3 py-2 bg-black/20 border border-white/6 text-white"/></div>
+
+            <div class="grid md:grid-cols-2 gap-4">
+              <div><label for="email" class="text-sm block mb-1">E-mail *</label><input id="email" name="email" type="email" required class="w-full rounded px-3 py-2 bg-black/20 border border-white/6 text-white" placeholder="seu@exemplo.com"/></div>
+
+              <div><label for="phone" class="text-sm block mb-1">Telefone *</label><input id="phone" name="phone" type="tel" required pattern="[\d\+\-\s\(\)]{7,20}" class="w-full rounded px-3 py-2 bg-black/20 border border-white/6 text-white" placeholder="+55 (11) 99999-9999"/></div>
+            </div>
+
+            <div><label for="message" class="text-sm block mb-1">Mensagem</label><textarea id="message" name="message" rows="5" class="w-full rounded px-3 py-2 bg-black/20 border border-white/6 text-white" placeholder="Como podemos ajudar?"></textarea></div>
+          </div>
+
+          <div class="md:col-span-1 flex flex-col gap-4">
+            <div>
+              <label class="text-sm block mb-1">Endereço</label>
+              <input id="street" name="street" placeholder="Rua, número" class="w-full rounded px-3 py-2 bg-black/20 border border-white/6 text-white mb-2"/>
+              <input id="city" name="city" placeholder="Cidade" class="w-full rounded px-3 py-2 bg-black/20 border border-white/6 text-white mb-2"/>
+              <div class="grid grid-cols-2 gap-2">
+                <input id="state" name="state" placeholder="Estado" class="rounded px-3 py-2 bg-black/20 border border-white/6 text-white"/>
+                <input id="zip" name="zip" placeholder="CEP" class="rounded px-3 py-2 bg-black/20 border border-white/6 text-white"/>
+              </div>
+              <div id="cepMsg" class="mt-2 text-sm text-gray-400"></div>
+            </div>
+
+            <div class="flex items-start gap-2"><input id="consent" name="consent" type="checkbox" class="mt-1"/><label for="consent" class="text-sm">Concordo em ser contactado por e-mail/telefone.</label></div>
+
+            <div>
+              <button id="contactSubmit" type="submit" class="w-full px-4 py-2 rounded bg-[#7C3AED] text-black font-semibold">Enviar mensagem</button>
+              <div id="contactMsg" class="mt-3 text-sm" aria-live="polite"></div>
+            </div>
+          </div>
+        </form>
+
+        <div class="mt-4 text-sm text-gray-400">Alternativamente, envie e-mail para <a href="mailto:contato@lojadeterror.ex" class="underline">contato@lojadeterror.ex</a></div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#050205] text-gray-300 border-t border-white/5" style="padding-top: 24px;">
+      <div class="container mx-auto px-4 lg:px-20 py-8">
+        <div class="flex flex-col lg:flex-row gap-6 lg:gap-12">
+          <div class="flex-1">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-12 h-12 rounded bg-gradient-to-br from-[#7C3AED] to-[#6D28D9] flex items-center justify-center text-black font-bold">LT</div>
+              <div>
+                <div class="font-semibold">Loja de Terror</div>
+                <div class="text-sm text-gray-400">Capas e edições selecionadas para fãs de suspense e horror.</div>
+              </div>
+            </div>
+            <div class="text-sm text-gray-500">Todos os direitos reservados • Loja de Terror</div>
+          </div>
+
+          <div class="flex-1 grid grid-cols-2 gap-4">
+            <div>
+              <ul class="space-y-2">
+                <li><a href="#section-0" class="hover:text-[#A78BFA]">Início</a></li>
+                <li><a href="#section-2" class="hover:text-[#A78BFA]">Sobre Nós</a></li>
+                <li><a href="#section-4" class="hover:text-[#A78BFA]">Capas</a></li>
+                <li><a href="#section-1" class="hover:text-[#A78BFA]">Loja Virtual</a></li>
+                <li><a href="#" class="hover:text-[#A78BFA]">Registro de domínios</a></li>
+              </ul>
+            </div>
+            <div>
+              <ul class="space-y-2">
+                <li><a href="#" class="hover:text-[#A78BFA]">Ajuda</a></li>
+                <li><a href="#" class="hover:text-[#A78BFA]">Área do Cliente</a></li>
+                <li><a href="#" class="hover:text-[#A78BFA]">Entre em Contato</a></li>
+                <li><a href="#" class="hover:text-[#A78BFA]">Blog</a></li>
+                <li><a href="#" class="hover:text-[#A78BFA]">Termos de Uso</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="flex-1">
+            <div class="font-semibold mb-2">Contato</div>
+            <div class="text-sm text-gray-400">contato@lojadeterror.ex</div>
+            <div class="text-sm text-gray-400 mt-2">Telefone: (11) 99999-9999</div>
+            <div class="mt-4">
+              <a class="inline-flex items-center gap-2 px-4 py-2 rounded bg-[#7C3AED] text-black font-semibold" href="#">Assine nossa newsletter</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- seus scripts existentes -->
+<script src="script.js"></script>
+<script src="search-google.js"></script> <!-- se estiver usando buscas -->
+<script src="cart.js"></script>
+</body>
+  
+</body>
+</html>

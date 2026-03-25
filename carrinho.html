@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Carrinho — Loja de Terror</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Minimal styles to keep consistency with your design */
+    body { background: radial-gradient(900px 500px at 12% 12%, rgba(124,58,237,0.12), transparent 8%), radial-gradient(800px 420px at 88% 78%, rgba(109,40,217,0.12), transparent 6%), linear-gradient(180deg,#0b0711 0%, #050205 100%); color: #EDE7FE; font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 28px; }
+    .cart-frame { background: rgba(10,8,15,0.6); border: 1px solid rgba(255,255,255,0.04); padding: 18px; border-radius: 12px; }
+    .cart-grid { display: grid; grid-template-columns: 100px 1fr 120px; gap: 12px; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.03); }
+    .cart-cover { width: 100px; height: 140px; display:flex; align-items:center; justify-content:center; background: rgba(255,255,255,0.02); border-radius:6px; overflow:hidden; }
+    .cart-cover img { max-width:100%; max-height:100%; object-fit:contain; }
+    .cart-title { font-weight:700; color: #EDE7FE; }
+    .cart-author { color: #cfcfd6; font-size: 0.95rem; margin-top:6px; }
+    .cart-price { font-weight:700; color:#fff; text-align:right; }
+    .actions { display:flex; gap:8px; justify-content:flex-end; margin-top:12px; }
+    .btn { padding:8px 12px; border-radius:8px; cursor:pointer; border:none;}
+    .btn-primary { background:#7C3AED; color:#000; }
+    .btn-ghost { background:transparent; color:#EDE7FE; border:1px solid rgba(255,255,255,0.06); }
+    .empty { text-align:center; padding:40px 0; color:#bdb9d8; }
+    header { position: sticky; top:0; backdrop-filter: blur(6px); background: rgba(0,0,0,0.3); padding:12px 0; z-index:40; }
+    header .container { display:flex; align-items:center; justify-content:space-between; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div style="width:44px;height:44px;border-radius:8px;background:linear-gradient(90deg,#7C3AED,#6D28D9);display:flex;align-items:center;justify-content:center;color:#000;font-weight:700;">LT</div>
+        <div style="font-weight:700;">Loja de Terror</div>
+      </div>
+      <div>
+        <a href="index.html" class="btn btn-ghost">Continuar comprando</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <h1 class="text-2xl font-bold mb-4">Seu Carrinho</h1>
+      <div class="cart-frame" id="cartFrame">
+        <!-- Conteúdo será injetado por JS -->
+      </div>
+
+      <div style="margin-top:16px; display:flex; justify-content:space-between; align-items:center;">
+        <div id="cartSummary" style="font-weight:700;">Total: R$ 0,00</div>
+        <div class="actions">
+          <button id="clearCartBtn" class="btn btn-ghost">Limpar carrinho</button>
+          <button id="checkoutBtn" class="btn btn-primary">Finalizar compra</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    (function(){
+      const CART_KEY = 'cart_items';
+      const SESSION_FLAG = 'openCartAt';
+      const TTL = 10 * 60 * 1000; // 10 min
+
+      function readCart(){ try{ return JSON.parse(localStorage.getItem(CART_KEY) || '[]'); } catch(e){ return []; } }
+      function writeCart(items){ localStorage.setItem(CART_KEY, JSON.stringify(items || [])); }
+
+      // Access control: only allow when session flag present and fresh
+      try {
+        const ts = Number(sessionStorage.getItem(SESSION_FLAG) || 0);
+        const now = Date.now();
+        if (!ts || isNaN(ts) || (now - ts) > TTL) {
+          // redirect to index
+          window.location.href = 'index.html';
+        }
+      } catch (e) {
+        window.location.href = 'index.html';
+      }
+
+      const frame = document.getElementById('cartFrame');
+      const summary = document.getElementById('cartSummary');
+      const clearBtn = document.getElementById('clearCartBtn');
+      const checkoutBtn = document.getElementById('checkoutBtn');
+
+      function formatPrice(n){
+        if (n == null || isNaN(n)) return 'R$ 0,00';
+        return 'R$ ' + n.toFixed(2).replace('.', ',');
+      }
+
+      function renderCart(){
+        const items = readCart();
+        frame.innerHTML = '';
+        if (!items || items.length === 0){
+          const empty = document.createElement('div');
+          empty.className = 'empty';
+          empty.innerText = 'Seu carrinho está vazio. Clique em "Comprar" para adicionar livros.';
+          frame.appendChild(empty);
+          summary.innerText = 'Total: R$ 0,00';
+          return;
+        }
+        let total = 0;
+        items.forEach(item => {
+          const row = document.createElement('div');
+          row.className = 'cart-grid';
+          // cover
+          const coverWrap = document.createElement('div');
+          coverWrap.className = 'cart-cover';
+          const img = document.createElement('img');
+          img.alt = item.title || '';
+          img.src = item.cover || '';
+          coverWrap.appendChild(img);
+          row.appendChild(coverWrap);
+          // title+author
+          const info = document.createElement('div');
+          const title = document.createElement('div'); title.className = 'cart-title'; title.innerText = item.title || '';
+          const author = document.createElement('div'); author.className = 'cart-author'; author.innerText = item.author || '';
+          info.appendChild(title); info.appendChild(author);
+          row.appendChild(info);
+          // price + remove
+          const right = document.createElement('div'); right.style.textAlign = 'right';
+          const price = document.createElement('div'); price.className = 'cart-price';
+          const pval = (item.price != null && !isNaN(Number(item.price))) ? Number(item.price) : (item.priceStr ? Number(String(item.priceStr).replace(/[^\d,\.]/g,'').replace(/\./g,'').replace(',','.') ) : null);
+          price.innerText = pval != null ? formatPrice(pval) : (item.priceStr || 'R$ 0,00');
+          right.appendChild(price);
+          const remove = document.createElement('button'); remove.className = 'btn btn-ghost'; remove.innerText = 'Remover';
+          remove.style.marginTop = '8px';
+          remove.addEventListener('click', () => {
+            const newItems = readCart().filter(i => i.id !== item.id);
+            writeCart(newItems);
+            renderCart();
+          });
+          right.appendChild(remove);
+          row.appendChild(right);
+
+          frame.appendChild(row);
+          if (pval) total += pval;
+        });
+        summary.innerText = 'Total: ' + formatPrice(total);
+      }
+
+      clearBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        localStorage.removeItem(CART_KEY);
+        renderCart();
+      });
+
+      checkoutBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        alert('Funcionalidade de checkout não implementada — isto é apenas um protótipo.');
+      });
+
+      // initial render
+      renderCart();
+
+    })();
+  </script>
+
+</body>
+</html>
